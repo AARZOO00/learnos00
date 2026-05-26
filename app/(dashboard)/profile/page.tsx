@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { Edit3, Check } from 'lucide-react'
 import { useAuth } from '@/lib/auth'
-import { supabase } from '@/lib/supabase'
+
 const stats = [
   { label: 'Courses', value: '4', color: '#00d9ff', bg: 'rgba(0,217,255,0.08)' },
   { label: 'XP Earned', value: '284', color: '#7c3aed', bg: 'rgba(124,58,237,0.08)' },
@@ -44,11 +44,8 @@ const itemV = {
 export default function ProfilePage() {
   const { user } = useAuth()
 
-  const displayName =
-    user?.user_metadata?.full_name ||
-    user?.user_metadata?.name ||
-    user?.email ||
-    'Student'
+  const displayName = user?.name || user?.email || 'Student'
+  const displayEmail = user?.email || 'student@example.com'
 
   const initials = displayName
     .split(' ')
@@ -72,7 +69,7 @@ export default function ProfilePage() {
   return (
     <main className="min-h-screen px-4 py-8 md:px-6 lg:px-8" style={{ background: 'var(--bg-primary)' }}>
       <div className="max-w-3xl mx-auto">
-        <p style={{ fontFamily: 'JetBrains Mono', fontSize: '11px', color: '#3d4f6b', marginBottom: '12px' }}>
+        <p style={{ fontFamily: 'JetBrains Mono', fontSize: '11px', color: 'var(--text-muted)', marginBottom: '12px' }}>
           &gt; dashboard / <span style={{ color: '#00d9ff' }}>profile</span>
         </p>
 
@@ -101,7 +98,7 @@ export default function ProfilePage() {
                     animation: 'rotateGradient 4s linear infinite',
                   }}
                 >
-                  <div className="w-full h-full rounded-full flex items-center justify-center" style={{ background: '#0b1120' }}>
+                  <div className="w-full h-full rounded-full flex items-center justify-center" style={{ background: 'var(--bg-card)' }}>
                     <span
                       style={{
                         fontFamily: 'Space Grotesk',
@@ -122,12 +119,12 @@ export default function ProfilePage() {
                   animate={{ scale: [1, 1.3, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
                   className="absolute bottom-1 right-1 w-3.5 h-3.5 rounded-full border-2"
-                  style={{ background: '#10b981', borderColor: '#0b1120', boxShadow: '0 0 8px rgba(16,185,129,0.5)' }}
+                  style={{ background: '#10b981', borderColor: 'var(--bg-card)', boxShadow: '0 0 8px rgba(16,185,129,0.5)' }}
                 />
               </div>
 
               <div className="flex-1 text-center sm:text-left">
-                <h1 style={{ fontFamily: 'Space Grotesk', fontWeight: 700, fontSize: '26px', color: '#e8f0fe' }}>
+                <h1 style={{ fontFamily: 'Space Grotesk', fontWeight: 700, fontSize: '26px', color: 'var(--text-primary)' }}>
                   {displayName}
                 </h1>
 
@@ -135,8 +132,8 @@ export default function ProfilePage() {
                   Student · Level 7
                 </p>
 
-                <p style={{ fontSize: '12px', color: '#3d4f6b', marginTop: '4px' }}>
-                  {user?.email || 'Member since January 2024'}
+                <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>
+                  {displayEmail}
                 </p>
 
                 <div className="flex flex-wrap justify-center sm:justify-start gap-3 mt-5">
@@ -145,12 +142,12 @@ export default function ProfilePage() {
                       key={s.label}
                       whileHover={{ scale: 1.05, y: -2 }}
                       className="flex flex-col items-center px-4 py-2.5 rounded-xl"
-                      style={{ background: 'rgba(0,0,0,0.3)', border: `1px solid ${s.bg.replace('0.08', '0.18')}` }}
+                      style={{ background: 'var(--input-bg)', border: `1px solid ${s.bg.replace('0.08', '0.18')}` }}
                     >
                       <span style={{ fontFamily: 'JetBrains Mono', fontWeight: 600, fontSize: '16px', color: s.color }}>
                         {s.value}
                       </span>
-                      <span style={{ fontSize: '10px', color: '#3d4f6b', marginTop: '2px' }}>{s.label}</span>
+                      <span style={{ fontSize: '10px', color: 'var(--text-muted)', marginTop: '2px' }}>{s.label}</span>
                     </motion.div>
                   ))}
                 </div>
@@ -160,7 +157,7 @@ export default function ProfilePage() {
 
           <motion.div variants={itemV} className="rounded-2xl p-5 noise-overlay" style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }}>
             <div className="flex items-center justify-between mb-3">
-              <h2 style={{ fontFamily: 'Space Grotesk', fontWeight: 600, fontSize: '14px', color: '#e8f0fe' }}>About</h2>
+              <h2 style={{ fontFamily: 'Space Grotesk', fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)' }}>About</h2>
 
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -193,23 +190,23 @@ export default function ProfilePage() {
                 style={{
                   width: '100%',
                   fontSize: '13px',
-                  background: 'rgba(0,0,0,0.3)',
+                  background: 'var(--input-bg)',
                   border: '1px solid rgba(0,217,255,0.3)',
                   borderRadius: '10px',
                   padding: '10px 14px',
-                  color: '#8b9ab5',
+                  color: 'var(--text-secondary)',
                   outline: 'none',
                   resize: 'none',
                   lineHeight: 1.6,
                 }}
               />
             ) : (
-              <p style={{ fontSize: '13px', color: '#8b9ab5', lineHeight: 1.65 }}>{bio}</p>
+              <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.65 }}>{bio}</p>
             )}
           </motion.div>
 
           <motion.div variants={itemV} className="rounded-2xl p-5 noise-overlay" style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }}>
-            <h2 style={{ fontFamily: 'Space Grotesk', fontWeight: 600, fontSize: '14px', color: '#e8f0fe', marginBottom: '14px' }}>Skills</h2>
+            <h2 style={{ fontFamily: 'Space Grotesk', fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)', marginBottom: '14px' }}>Skills</h2>
             <div className="flex flex-wrap gap-2">
               {skills.map((s) => (
                 <span
@@ -232,7 +229,7 @@ export default function ProfilePage() {
           </motion.div>
 
           <motion.div variants={itemV} className="rounded-2xl p-5 noise-overlay" style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }}>
-            <h2 style={{ fontFamily: 'Space Grotesk', fontWeight: 600, fontSize: '14px', color: '#e8f0fe', marginBottom: '14px' }}>
+            <h2 style={{ fontFamily: 'Space Grotesk', fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)', marginBottom: '14px' }}>
               Achievements
             </h2>
 
@@ -246,7 +243,7 @@ export default function ProfilePage() {
                 >
                   <div style={{ fontSize: '22px', marginBottom: '8px' }}>{b.emoji}</div>
                   <p style={{ fontFamily: 'Space Grotesk', fontWeight: 600, fontSize: '13px', color: b.color }}>{b.title}</p>
-                  <p style={{ fontSize: '11px', color: '#3d4f6b', marginTop: '3px', lineHeight: 1.4 }}>{b.desc}</p>
+                  <p style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '3px', lineHeight: 1.4 }}>{b.desc}</p>
                 </motion.div>
               ))}
             </div>
