@@ -187,18 +187,10 @@ export default function ProfilePage() {
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
                 rows={3}
-                style={{
-                  width: '100%',
-                  fontSize: '13px',
-                  background: 'var(--input-bg)',
-                  border: '1px solid rgba(0,217,255,0.3)',
-                  borderRadius: '10px',
-                  padding: '10px 14px',
-                  color: 'var(--text-secondary)',
-                  outline: 'none',
-                  resize: 'none',
-                  lineHeight: 1.6,
-                }}
+                title="Profile bio"
+                placeholder="Write a short bio..."
+                aria-label="Profile bio"
+                className="w-full text-[13px] bg-[var(--input-bg)] border border-[rgba(0,217,255,0.3)] rounded-[10px] px-[14px] py-[10px] text-[var(--text-secondary)] outline-none resize-none leading-[1.6]"
               />
             ) : (
               <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.65 }}>{bio}</p>

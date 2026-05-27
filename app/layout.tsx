@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+// @ts-expect-error: side-effect CSS import without type declarations
 import './globals.css'
 import { AuthProvider } from '@/lib/auth'
 
