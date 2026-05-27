@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { createClient } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase'
 import { Course } from '@/lib/types'
 import { BentoGrid } from '@/components/ui/BentoGrid'
 import { Sidebar } from '@/components/dashboard/Sidebar'
@@ -10,7 +10,6 @@ export default async function DashboardPage() {
   let fetchError: string | null = null
 
   try {
-    const supabase = createClient()
     const { data, error } = await supabase
       .from('courses')
       .select('*')
